@@ -1,0 +1,149 @@
+.container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+}
+
+.chartSection, .cardsSection {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeader {
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+
+.sectionSub {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.chartWrapper {
+  width: 100%;
+  flex: 1;
+  min-height: 260px;
+}
+
+.pocketCardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pocketItemCard {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color var(--transition-fast);
+}
+
+.pocketItemCard:hover {
+  border-color: var(--color-border);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pocketMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconBox {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pocketName {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.pocketRatio {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+
+.remainingBadge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.badgeNormal {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.badgeOver {
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.progressRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+.barOver {
+  background-color: var(--color-danger) !important;
+}
+
+.spentText {
+  font-size: 0.76rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}

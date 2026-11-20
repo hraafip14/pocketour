@@ -1,0 +1,147 @@
+.card {
+  max-width: 600px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerIcon {
+  color: var(--color-accent);
+}
+
+.monthTitle {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.section {
+  margin-bottom: 22px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.editBtn {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: transparent;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.editBtn:hover {
+  background-color: var(--color-accent-subtle);
+}
+
+.baseDisplay {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+}
+
+.baseAmount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+.baseEditForm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.incentiveList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emptyInc {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: 6px 0;
+}
+
+.addIncForm {
+  margin-top: 12px;
+  padding: 14px;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.addIncInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.addIncActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerLabel {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.footerAmount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
+@media (max-width: 600px) {
+  .addIncInputs {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}

@@ -1,0 +1,89 @@
+.page {
+  animation: fadeIn 0.25s ease;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 22px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cardIcon {
+  color: var(--color-accent);
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.infoLabel {
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.infoValue {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+@media (max-width: 800px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}

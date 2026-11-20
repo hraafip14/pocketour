@@ -1,0 +1,95 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+}
+
+.cardDeficit {
+  border-color: var(--color-danger);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cardLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+
+.iconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconSalary {
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent);
+}
+
+.iconExpense {
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+
+.iconRemaining {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.iconDeficit {
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.iconPercent {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.cardValue {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  margin-bottom: 4px;
+}
+
+.textRemaining {
+  color: var(--color-success);
+}
+
+.textDeficit {
+  color: var(--color-danger);
+}
+
+.cardSub {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}

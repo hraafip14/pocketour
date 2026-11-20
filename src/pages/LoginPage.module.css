@@ -1,0 +1,61 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background-color: var(--color-bg-primary);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.3s ease;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logoBadge {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 14px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 0.86rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.submitBtn {
+  margin-top: 8px;
+  width: 100%;
+}

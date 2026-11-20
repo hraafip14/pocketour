@@ -1,0 +1,186 @@
+.card {
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.headerTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerIcon {
+  color: var(--color-accent);
+}
+
+.headerTitle {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.salaryRef {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.salaryRef strong {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
+.editPocketsBox {
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeIn 0.2s ease;
+}
+
+.editPocketsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editPocketsTitle {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.sumBadge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.sumValid {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.sumInvalid {
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.pocketsInputsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.pocketInputItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputItemName {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.validationError {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--color-danger);
+}
+
+.editActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.pocketsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.footerItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footerLabel {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.totalSpentText {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+.netRemainingText {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-success);
+  font-family: var(--font-mono);
+}
+
+.deficit {
+  color: var(--color-danger) !important;
+}
+
+@media (max-width: 720px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerRight {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pocketsInputsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

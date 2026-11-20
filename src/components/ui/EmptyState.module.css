@@ -1,0 +1,35 @@
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  text-align: center;
+}
+
+.iconWrap {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.description {
+  font-size: 0.84rem;
+  color: var(--color-text-secondary);
+  max-width: 300px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}

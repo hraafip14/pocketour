@@ -1,0 +1,121 @@
+.topbar {
+  height: 60px;
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menuBtn {
+  display: none;
+  color: var(--color-text-primary);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  align-items: center;
+  justify-content: center;
+}
+
+.menuBtn:hover {
+  background-color: var(--color-bg-elevated);
+}
+
+.brandTitleMobile {
+  display: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profileBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.roleIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.editorDot {
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent-border);
+}
+
+.viewerDot {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.profileNameDesktop {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.switchProfileBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.switchProfileBtn:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-primary);
+  border-color: var(--color-accent);
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .menuBtn {
+    display: flex;
+  }
+
+  .brandTitleMobile {
+    display: block;
+  }
+
+  .profileNameDesktop {
+    display: none;
+  }
+
+  .switchText {
+    display: none;
+  }
+}

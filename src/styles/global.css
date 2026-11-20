@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Common typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   THEMES: Dark Plum vs Floral White
+   Anti-AI Slop: Clear typography, soft natural shadows, clean borders,
+   subtle accents, no exaggerated glowing neon.
+   ========================================================================== */
+
+[data-theme='dark'] {
+  --color-bg-primary: #2E2A38;      /* Dark Plum */
+  --color-bg-surface: #383344;      /* Card / elevated surface */
+  --color-bg-elevated: #443E52;     /* Dropdown / active row / modal */
+  --color-bg-hover: #4E475E;
+  
+  --color-accent: #00D2FF;          /* Electric Blue */
+  --color-accent-hover: #33DBFF;
+  --color-accent-subtle: rgba(0, 210, 255, 0.12);
+  --color-accent-border: rgba(0, 210, 255, 0.3);
+  
+  --color-text-primary: #F4F1F8;
+  --color-text-secondary: #AEA7BA;
+  --color-text-muted: #7E778B;
+  --color-text-on-accent: #0B1926;
+  
+  --color-border: #4D465C;
+  --color-border-subtle: #3E384D;
+  
+  --color-danger: #FF6B6B;
+  --color-danger-subtle: rgba(255, 107, 107, 0.14);
+  --color-success: #4ADE80;
+  --color-success-subtle: rgba(74, 222, 128, 0.14);
+  --color-warning: #FBBF24;
+  --color-warning-subtle: rgba(251, 191, 36, 0.14);
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.38);
+  --shadow-modal: 0 20px 45px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme='light'] {
+  --color-bg-primary: #FFFAF0;      /* Floral White */
+  --color-bg-surface: #FFFFFF;      /* Clean White */
+  --color-bg-elevated: #F7EFE5;     /* Soft ivory/sand */
+  --color-bg-hover: #EFE4D6;
+  
+  --color-accent: #C94472;          /* Deep Rose Pink */
+  --color-accent-hover: #B53662;
+  --color-accent-subtle: rgba(201, 68, 114, 0.1);
+  --color-accent-border: rgba(201, 68, 114, 0.25);
+  
+  --color-text-primary: #292430;
+  --color-text-secondary: #6B6275;
+  --color-text-muted: #9E95A8;
+  --color-text-on-accent: #FFFFFF;
+  
+  --color-border: #E8DECE;
+  --color-border-subtle: #F2EBE0;
+  
+  --color-danger: #D94452;
+  --color-danger-subtle: rgba(217, 68, 82, 0.1);
+  --color-success: #22945B;
+  --color-success-subtle: rgba(34, 148, 91, 0.1);
+  --color-warning: #D97706;
+  --color-warning-subtle: rgba(217, 119, 6, 0.1);
+  
+  --shadow-sm: 0 1px 3px rgba(46, 42, 56, 0.05);
+  --shadow-md: 0 6px 18px rgba(46, 42, 56, 0.07);
+  --shadow-lg: 0 12px 32px rgba(46, 42, 56, 0.09);
+  --shadow-modal: 0 24px 50px rgba(46, 42, 56, 0.14);
+}
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  outline: none;
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Scrollbar aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
