@@ -14,6 +14,7 @@ export default function SalaryPage() {
     salaries,
     loading,
     updateBaseSalary,
+    updatePaydayDate,
     addIncentive,
     deleteIncentive,
     calculateTotalSalary,
@@ -31,6 +32,15 @@ export default function SalaryPage() {
       success('Gaji pokok berhasil diperbarui.');
     } catch (err) {
       toastError(err.message || 'Gagal memperbarui gaji pokok.');
+    }
+  };
+
+  const handleUpdatePaydayDate = async (salaryId, newDate) => {
+    try {
+      await updatePaydayDate(salaryId, newDate);
+      success(newDate ? 'Tanggal gajian berhasil diatur.' : 'Tanggal gajian telah dikosongkan.');
+    } catch (err) {
+      toastError(err.message || 'Gagal mengatur tanggal gajian.');
     }
   };
 
@@ -102,6 +112,7 @@ export default function SalaryPage() {
               isEditor={isEditor}
               totalSalary={calculateTotalSalary(sal)}
               onUpdateBaseSalary={handleUpdateBase}
+              onUpdatePaydayDate={handleUpdatePaydayDate}
               onAddIncentive={handleAddIncentive}
               onDeleteIncentiveRequest={(inc) =>
                 setTargetToDelete({ salaryId: sal.id, incentive: inc })

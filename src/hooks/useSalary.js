@@ -120,15 +120,37 @@ export function useSalary() {
     setLoading(true);
 
     try {
-      const { data: dbSalaries, error: salErr } = await supabase
+      let dbSalaries = null;
+      let salErr = null;
+
+      const res = await supabase
         .from('salaries')
         .select(`
-          id, profile_id, month, year, base_salary,
+          id, profile_id, month, year, base_salary, payday_date,
           incentives ( id, label, amount )
         `)
         .eq('profile_id', activeProfile.id)
         .order('year', { ascending: false })
         .order('month', { ascending: false });
+
+      if (res.error && (res.error.message?.includes('payday_date') || res.error.code === '42703')) {
+        // Fallback jika kolom payday_date belum ada di database Supabase
+        const fallbackRes = await supabase
+          .from('salaries')
+          .select(`
+            id, profile_id, month, year, base_salary,
+            incentives ( id, label, amount )
+          `)
+          .eq('profile_id', activeProfile.id)
+          .order('year', { ascending: false })
+          .order('month', { ascending: false });
+
+        dbSalaries = (fallbackRes.data || []).map((s) => ({ ...s, payday_date: null }));
+        salErr = fallbackRes.error;
+      } else {
+        dbSalaries = res.data;
+        salErr = res.error;
+      }
 
       if (salErr) {
         console.error('Supabase query error:', salErr);
@@ -185,6 +207,28 @@ export function useSalary() {
 
     setSalaries((prev) =>
       prev.map((s) => (s.id === salaryId ? { ...s, base_salary: parsed } : s))
+    );
+  };
+
+  // Update Tanggal Gajian langsung di Supabase
+  const updatePaydayDate = async (salaryId, newDate) => {
+    if (!isEditor) throw new Error('Hanya Editor yang dapat mengubah tanggal gajian.');
+    const cleanDate = newDate ? String(newDate).trim() : null;
+
+    const { error } = await supabase
+      .from('salaries')
+      .update({ payday_date: cleanDate, updated_at: new Date().toISOString() })
+      .eq('id', salaryId);
+
+    if (error) {
+      if (error.message?.includes('payday_date') || error.code === '42703') {
+        throw new Error('Kolom payday_date belum dibuat di Supabase. Silakan jalankan script SQL migrasi di Supabase SQL Editor.');
+      }
+      throw new Error(`Gagal memperbarui tanggal gajian di Supabase: ${error.message}`);
+    }
+
+    setSalaries((prev) =>
+      prev.map((s) => (s.id === salaryId ? { ...s, payday_date: cleanDate } : s))
     );
   };
 
@@ -266,6 +310,7 @@ export function useSalary() {
     loading,
     refreshSalaries: fetchSalaries,
     updateBaseSalary,
+    updatePaydayDate,
     addIncentive,
     deleteIncentive,
     calculateTotalSalary,

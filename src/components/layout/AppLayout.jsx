@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import styles from './AppLayout.module.css';
 import Sidebar from './Sidebar';
 import TopBar from './TopBar';
-import ThemeToggle from '../ui/ThemeToggle';
 import Toast from '../ui/Toast';
 import ConfirmModal from '../ui/ConfirmModal';
 import { useAuth } from '../../contexts/AuthContext';
@@ -44,9 +43,6 @@ export default function AppLayout() {
           <Outlet />
         </main>
       </div>
-
-      {/* Floating Theme Toggle */}
-      <ThemeToggle />
 
       {/* Toast Notifier */}
       <Toast />

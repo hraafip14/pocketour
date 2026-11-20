@@ -9,18 +9,18 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className={styles.floatingButton}
+      className={styles.themeBtn}
       title={isDark ? 'Ganti ke Mode Terang (Floral White)' : 'Ganti ke Mode Gelap (Dark Plum)'}
       aria-label="Toggle theme"
     >
       <div className={styles.iconContainer}>
         {isDark ? (
-          <Sun size={20} className={styles.sunIcon} />
+          <Sun size={16} className={styles.sunIcon} />
         ) : (
-          <Moon size={20} className={styles.moonIcon} />
+          <Moon size={16} className={styles.moonIcon} />
         )}
       </div>
-      <span className={styles.tooltip}>
+      <span className={styles.themeLabel}>
         {isDark ? 'Mode Terang' : 'Mode Gelap'}
       </span>
     </button>

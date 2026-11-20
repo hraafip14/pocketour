@@ -6,6 +6,14 @@
 [build.environment]
   SECRETS_SCAN_OMIT_PATHS = ".env"
 
+# Jadwal Otomatis: Setiap hari Sabtu jam 08:00 AM WIB (01:00 UTC)
+[functions."weekly-report-email"]
+  schedule = "0 1 * * 6"
+
+# Jadwal Otomatis: Setiap hari jam 16:00 PM WIB (09:00 UTC)
+[functions."payday-reminder-email"]
+  schedule = "0 9 * * *"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

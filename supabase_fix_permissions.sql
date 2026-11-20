@@ -13,6 +13,9 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authentic
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO anon, authenticated;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON ROUTINES TO anon, authenticated;
 
+-- Pastikan kolom payday_date ada pada tabel salaries
+ALTER TABLE public.salaries ADD COLUMN IF NOT EXISTS payday_date date;
+
 -- 2. Sinkronkan profil pengguna yang sudah ada di auth.users ke tabel public.profiles
 INSERT INTO public.profiles (id, email, full_name)
 SELECT 

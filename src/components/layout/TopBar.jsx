@@ -3,6 +3,7 @@ import styles from './TopBar.module.css';
 import { Menu, Users, ShieldCheck, Eye } from 'lucide-react';
 import { useProfile } from '../../contexts/ProfileContext';
 import { Link } from 'react-router-dom';
+import ThemeToggle from '../ui/ThemeToggle';
 
 export default function TopBar({ onOpenSidebar }) {
   const { activeProfile, isEditor, roleLabel } = useProfile();
@@ -37,6 +38,8 @@ export default function TopBar({ onOpenSidebar }) {
           <Users size={16} />
           <span className={styles.switchText}>Ganti Profil</span>
         </Link>
+
+        <ThemeToggle />
       </div>
     </header>
   );

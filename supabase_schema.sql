@@ -20,10 +20,14 @@ CREATE TABLE IF NOT EXISTS public.salaries (
   month int NOT NULL CHECK (month BETWEEN 1 AND 12),
   year int NOT NULL,
   base_salary numeric(15,2) DEFAULT 0,
+  payday_date date,
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now(),
   UNIQUE (profile_id, month, year)
 );
+
+-- Pastikan kolom payday_date ada jika tabel sudah terlanjur dibuat
+ALTER TABLE public.salaries ADD COLUMN IF NOT EXISTS payday_date date;
 
 -- 4. Create Incentives Table (insentif / tunjangan)
 CREATE TABLE IF NOT EXISTS public.incentives (
