@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -31,7 +31,8 @@ export default defineConfig(({ mode }) => {
                 const body = JSON.parse(bodyStr || '{}');
                 const { month, year, profileName, htmlSummary } = body;
 
-                const apiKey = env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+                const smtpUser = env.SMTP_USER || process.env.SMTP_USER;
+                const smtpPass = env.SMTP_PASS || process.env.SMTP_PASS;
                 const recipientsEnv =
                   env.REPORT_RECIPIENTS ||
                   process.env.REPORT_RECIPIENTS ||
@@ -41,81 +42,48 @@ export default defineConfig(({ mode }) => {
                   .map((e) => e.trim())
                   .filter(Boolean);
 
-                if (!apiKey || apiKey.trim() === '' || apiKey.includes('your_resend_api_key')) {
+                if (!smtpUser || !smtpPass) {
                   res.statusCode = 400;
                   res.end(
                     JSON.stringify({
                       success: false,
                       error:
-                        'RESEND_API_KEY belum diisi di file .env. Silakan buat akun gratis di https://resend.com, salin API Key Anda, lalu masukkan ke file .env pada baris RESEND_API_KEY=re_...',
+                        'SMTP_USER atau SMTP_PASS belum diset di file .env. Buat App Password di https://myaccount.google.com/apppasswords lalu masukkan ke .env.',
                     })
                   );
                   return;
                 }
 
-                const resend = new Resend(apiKey);
+                const transporter = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                    user: smtpUser,
+                    pass: smtpPass.replace(/\s+/g, ''),
+                  },
+                });
 
-                // 1. Coba kirim ke daftar penerima
-                const sendResult = await resend.emails.send({
-                  from: 'Pocketour <onboarding@resend.dev>',
-                  to: recipientList,
+                const info = await transporter.sendMail({
+                  from: `"Pocketour" <${smtpUser}>`,
+                  to: recipientList.join(', '),
                   subject: `[Pocketour] Laporan Keuangan Bulan ${month} ${year} — ${profileName}`,
                   html: htmlSummary,
                 });
-
-                if (sendResult.error) {
-                  const errorMsg = sendResult.error.message || '';
-
-                  // Cek apakah ada batasan testing domain Resend (hanya boleh kirim ke email pemilik akun)
-                  const matchOwner = errorMsg.match(/own email address \(([^)]+)\)/i);
-                  if (matchOwner && matchOwner[1]) {
-                    const ownerEmail = matchOwner[1];
-                    console.log(`Resend Sandbox restriction detected. Forwarding report to owner email: ${ownerEmail}`);
-
-                    // Kirim otomatis ke email terverifikasi pemilik akun Resend
-                    const ownerResult = await resend.emails.send({
-                      from: 'Pocketour <onboarding@resend.dev>',
-                      to: [ownerEmail],
-                      subject: `[Pocketour] Laporan Keuangan Bulan ${month} ${year} — ${profileName}`,
-                      html: htmlSummary,
-                    });
-
-                    if (!ownerResult.error) {
-                      res.statusCode = 200;
-                      res.end(
-                        JSON.stringify({
-                          success: true,
-                          message: `Laporan berhasil dikirim ke email akun Resend Anda (${ownerEmail})! (Catatan: Domain onboarding@resend.dev hanya mengizinkan pengiriman ke email pemilik akun. Untuk mengirim ke email lain seperti hasajalah74@gmail.com & nidaliyana14@gmail.com, Anda perlu memverifikasi domain di resend.com/domains).`,
-                          deliveredTo: ownerEmail,
-                        })
-                      );
-                      return;
-                    }
-                  }
-
-                  res.statusCode = 400;
-                  res.end(
-                    JSON.stringify({
-                      success: false,
-                      error: sendResult.error.message || 'Gagal mengirim email melalui Resend.',
-                    })
-                  );
-                  return;
-                }
 
                 res.statusCode = 200;
                 res.end(
                   JSON.stringify({
                     success: true,
                     message: `Email laporan keuangan berhasil dikirim ke: ${recipientList.join(', ')}.`,
+                    messageId: info.messageId,
                   })
                 );
               } catch (err) {
+                console.error('Error in local nodemailer server:', err);
                 res.statusCode = 500;
                 res.end(
                   JSON.stringify({
                     success: false,
-                    error: err.message || 'Terjadi kesalahan pada server saat mengirim email.',
+                    error: err.message || 'Terjadi kesalahan saat mengirim email via Gmail SMTP.',
                   })
                 );
               }
