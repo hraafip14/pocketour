@@ -72,10 +72,30 @@ export default function PocketBreakdown({
                   borderColor: 'var(--color-border)',
                   borderRadius: 'var(--radius-sm)',
                   fontSize: '0.82rem',
+                  color: 'var(--color-text-primary)',
+                  boxShadow: 'var(--shadow-md)',
+                }}
+                itemStyle={{
+                  color: 'var(--color-text-primary)',
+                }}
+                labelStyle={{
+                  color: 'var(--color-text-primary)',
+                  fontWeight: 600,
+                  marginBottom: '4px',
                 }}
               />
               <Legend
-                wrapperStyle={{ fontSize: '0.8rem', paddingTop: '10px' }}
+                wrapperStyle={{
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  paddingTop: '12px',
+                  color: 'var(--color-text-primary)',
+                }}
+                formatter={(value) => (
+                  <span style={{ color: 'var(--color-text-primary)', fontWeight: 600, marginRight: 8 }}>
+                    {value}
+                  </span>
+                )}
               />
               <Bar dataKey="limit" name="Batas Anggaran" fill="var(--color-border)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="terpakai" name="Aktual Terpakai" radius={[4, 4, 0, 0]}>
@@ -118,7 +138,7 @@ export default function PocketBreakdown({
                     <div>
                       <div className={styles.pocketName}>{pkt.name}</div>
                       <div className={styles.pocketRatio}>
-                        Alokasi: {pkt.percentage}% · Batas {formatRupiah(limit)}
+                        Alokasi: <span className={styles.ratioHighlight}>{pkt.percentage}%</span> · Batas: <span className={styles.limitHighlight}>{formatRupiah(limit)}</span>
                       </div>
                     </div>
                   </div>
@@ -140,9 +160,14 @@ export default function PocketBreakdown({
                       }}
                     />
                   </div>
-                  <span className={styles.spentText}>
-                    Terpakai: {formatRupiah(spent)}
-                  </span>
+                  <div className={styles.comparisonRow}>
+                    <span className={styles.spentLabel}>
+                      Aktual Terpakai: <strong className={isOverbudget ? styles.spentOver : styles.spentValue}>{formatRupiah(spent)}</strong>
+                    </span>
+                    <span className={styles.percentText}>
+                      {limit > 0 ? Math.round((spent / limit) * 100) : 0}% terpakai
+                    </span>
+                  </div>
                 </div>
               </div>
             );
