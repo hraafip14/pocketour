@@ -69,6 +69,10 @@ export default function DashboardPage() {
 
   // Handlers Export & Email
   const handleExportExcel = () => {
+    if (!isEditor) {
+      toastError('Fitur ekspor Excel tidak dapat digunakan saat melihat profil lain (mode pelihat).');
+      return;
+    }
     try {
       exportToExcel({
         salary: currentSalary,
@@ -85,6 +89,10 @@ export default function DashboardPage() {
   };
 
   const handleExportPdf = () => {
+    if (!isEditor) {
+      toastError('Fitur ekspor PDF tidak dapat digunakan saat melihat profil lain (mode pelihat).');
+      return;
+    }
     try {
       exportToPdf({
         salary: currentSalary,
@@ -101,6 +109,10 @@ export default function DashboardPage() {
   };
 
   const handleSendEmail = async () => {
+    if (!isEditor) {
+      toastError('Fitur kirim email laporan tidak dapat digunakan saat melihat profil lain (mode pelihat).');
+      return;
+    }
     try {
       const res = await sendReportEmail({
         salary: currentSalary,
@@ -161,12 +173,12 @@ export default function DashboardPage() {
         {/* Action Button: Preview & Export */}
         <div className={styles.headerActions}>
           <Button
-            variant="primary"
+            variant={isEditor ? 'primary' : 'secondary'}
             size="md"
             icon={Eye}
             onClick={() => setShowPreviewModal(true)}
           >
-            Tinjau & Ekspor Laporan
+            {isEditor ? 'Tinjau & Ekspor Laporan' : 'Tinjau Laporan'}
           </Button>
         </div>
       </div>
@@ -206,6 +218,7 @@ export default function DashboardPage() {
         totalExpenses={totalExpenses}
         remainingIncome={remainingIncome}
         profile={activeProfile}
+        isEditor={isEditor}
         onClose={() => setShowPreviewModal(false)}
         onExportExcel={handleExportExcel}
         onExportPdf={handleExportPdf}

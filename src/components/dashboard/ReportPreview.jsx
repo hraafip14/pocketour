@@ -10,6 +10,8 @@ import {
   Mail,
   Eye,
   Calendar,
+  Lock,
+  ShieldAlert,
 } from 'lucide-react';
 
 export default function ReportPreview({
@@ -20,6 +22,7 @@ export default function ReportPreview({
   totalExpenses,
   remainingIncome,
   profile,
+  isEditor = false,
   onClose,
   onExportExcel,
   onExportPdf,
@@ -41,6 +44,7 @@ export default function ReportPreview({
   });
 
   const handleSend = async () => {
+    if (!isEditor) return;
     setIsSendingEmail(true);
     try {
       await onSendEmail();
@@ -78,14 +82,23 @@ export default function ReportPreview({
           </button>
         </div>
 
-        {/* Email Recipient Notice */}
-        <div className={styles.emailNotice}>
-          <Mail size={16} className={styles.mailIcon} />
-          <span>
-            Laporan ini ditujukan & akan dikirimkan ke 2 email:
-            <strong> hasajalah74@gmail.com</strong> dan <strong>nidaliyana14@gmail.com</strong>.
-          </span>
-        </div>
+        {/* Notifikasi Mode Pelihat / Info Pengiriman Email */}
+        {!isEditor ? (
+          <div className={styles.viewerAlert}>
+            <ShieldAlert size={16} className={styles.alertIcon} />
+            <span>
+              <strong>Mode Pelihat (Hanya-Baca):</strong> Anda sedang melihat profil <strong>{profile?.fullName}</strong>. Fitur ekspor berkas (Excel/PDF) dan kirim email laporan dinonaktifkan.
+            </span>
+          </div>
+        ) : (
+          <div className={styles.emailNotice}>
+            <Mail size={16} className={styles.mailIcon} />
+            <span>
+              Laporan ini ditujukan & akan dikirimkan ke 2 email:
+              <strong> hasajalah74@gmail.com</strong> dan <strong>nidaliyana14@gmail.com</strong>.
+            </span>
+          </div>
+        )}
 
         {/* Tab Navigasi */}
         <div className={styles.tabs}>
@@ -236,7 +249,9 @@ export default function ReportPreview({
               variant="secondary"
               size="sm"
               icon={FileSpreadsheet}
-              onClick={onExportExcel}
+              disabled={!isEditor}
+              title={!isEditor ? 'Fitur ekspor Excel dinonaktifkan pada mode pelihat' : 'Export Excel (.xlsx)'}
+              onClick={isEditor ? onExportExcel : undefined}
             >
               Export Excel (.xlsx)
             </Button>
@@ -244,7 +259,9 @@ export default function ReportPreview({
               variant="secondary"
               size="sm"
               icon={FileText}
-              onClick={onExportPdf}
+              disabled={!isEditor}
+              title={!isEditor ? 'Fitur ekspor PDF dinonaktifkan pada mode pelihat' : 'Export PDF (.pdf)'}
+              onClick={isEditor ? onExportPdf : undefined}
             >
               Export PDF (.pdf)
             </Button>
@@ -252,14 +269,25 @@ export default function ReportPreview({
 
           <div className={styles.mainActions}>
             <Button
-              variant="primary"
+              variant={isEditor ? 'primary' : 'secondary'}
               size="sm"
-              icon={Send}
+              icon={isEditor ? Send : Lock}
+              disabled={!isEditor}
+              title={!isEditor ? 'Fitur kirim email dinonaktifkan pada mode pelihat' : 'Kirim Email Laporan'}
               loading={isSendingEmail}
               onClick={handleSend}
             >
-              Kirim Email Laporan
+              {isEditor ? 'Kirim Email Laporan' : 'Kirim Email (Terkunci)'}
             </Button>
+            {!isEditor && (
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={onClose}
+              >
+                Tutup
+              </Button>
+            )}
           </div>
         </div>
       </div>
